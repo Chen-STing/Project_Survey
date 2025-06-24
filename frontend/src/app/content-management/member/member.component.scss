@@ -1,0 +1,87 @@
+.light {
+  --background-primary: rgb(255, 255, 255);
+  --textTitle-color: rgb(43, 64, 96);
+  --text-color: rgb(44, 58, 58);
+  --background-border: rgb(226, 229, 238);
+}
+
+.dark {
+  --background-primary: #252625;
+  --textTitle-color: #696464;
+  --text-color: rgb(158, 182, 182);
+  --submit-color:white;
+  --background-border: #525259;
+}
+
+// 整體布局
+.containerMember {
+  width: 95%;
+  height: auto;
+  border-radius: 15px;
+  background: var(--background-border);
+  padding: 15px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.card{
+  background: var(--background-primary);
+
+  .title {
+    color: var(--textTitle-color);
+  }
+
+  .input {
+    width: 70%;
+  }
+}
+
+.title-box {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.password-box {
+  position: relative;
+  text-align: left;
+  margin-bottom: 50px;
+  p {
+    color: var(--text-color);
+  }
+  i {
+    position: absolute;
+    right: 31%;
+    top: 57px;
+    font-size: 23px;
+    color: rgb(160, 188, 254);
+    z-index: 1;
+    cursor: pointer;
+  }
+}
+// icon顯示變化
+.active {
+  color: rgb(13, 40, 117) !important;
+}
+
+
+// 底部按鈕
+.card-footer {
+  background: rgba(164, 164, 230, 0.7);
+
+  p {
+    color: var(--submit-color);
+  }
+
+}
+
+.card-footer-item:nth-child(1):hover {
+  cursor: pointer;
+  background: rgba(164, 164, 230);
+  border-radius: 0px 0px 0px 10px;
+}
+
+.card-footer-item:nth-child(2):hover {
+  cursor: pointer;
+  background: rgba(164, 164, 230);
+  border-radius: 0px 0px 10px 0px;
+}

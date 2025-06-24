@@ -1,0 +1,129 @@
+
+<!-- <section class="hero is-small is-primary">
+    <div class="hero-body">
+      <p class="title" routerLink="">Survey</p>
+      <div class="buttons">
+      <a class="button is-link">
+        <i class='bx bx-log-out'></i>
+        <span>登出</span>
+      </a>
+      </div>
+    </div>
+</section>
+
+
+<div class="body-box">
+
+
+  <nav class="side-nav">
+    <div class="item" routerLinkActive="active" >
+      <button routerLink="/management/edit">
+        <i class='bx bxs-edit' ></i>
+        我的問卷</button>
+    </div>
+    <div class="item" routerLinkActive="active" >
+      <button routerLink="/management/feedback">
+        <i class='bx bx-message-dots' ></i>
+        問卷回饋</button>
+    </div>
+    <div class="item" routerLinkActive="active" >
+      <button routerLink="/management/count">
+        <i class='bx bx-line-chart' ></i>
+        問卷統計</button>
+    </div>
+    <div class="item" routerLinkActive="active" >
+      <button routerLink="/management/member">
+        <i class='bx bx-user-plus'></i>
+        會員管理</button>
+    </div>
+  </nav>
+
+
+    <div class="directions">
+
+        <router-outlet></router-outlet>
+
+
+
+    </div>
+</div> -->
+
+<body>
+<div class="container" [ngClass]="{dark: !isdarkMode, light: isdarkMode}">
+  <!-- 側邊欖 -->
+  <nav class="leftSide">
+    <div class="memberInfo">
+
+      <a nz-dropdown [nzDropdownMenu]="menu">
+        <img src="user.png">
+        <span>{{user}}</span>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu" nzOverlayClassName="menu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item nzDanger Class="menuAccount" routerLink="/" (click)="logOut()">
+            <p>登出</p>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+
+    </div>
+    <div class="functionZone">
+      <div class="functionBox">
+        <p class="subtitle">DASHBOARDS</p>
+        <div class="item" routerLinkActive="active" >
+          <button routerLink="/management/edit" (click)="showRouterTitle(1)">
+            <i class='bx bxs-edit' ></i>
+            我的問卷</button>
+        </div>
+        <div class="item" routerLinkActive="active" >
+          <button routerLink="/management/feedback" (click)="showRouterTitle(2)">
+            <i class='bx bx-message-dots' ></i>
+            問卷回饋</button>
+        </div>
+        <div class="item" routerLinkActive="active" >
+          <button routerLink="/management/count" (click)="showRouterTitle(3)">
+            <i class='bx bx-line-chart' ></i>
+            問卷統計</button>
+        </div>
+      </div>
+      <div class="functionBox">
+        <p class="subtitle">SETTINGS</p>
+        <div class="item" routerLinkActive="active" >
+          <button routerLink="/management/member" (click)="showRouterTitle(4)">
+            <i class='bx bx-user-plus'></i>
+            會員管理</button>
+        </div>
+      </div>
+      <p class="title" routerLink="/" style="
+        cursor: pointer;
+        margin-top: 43vh;
+        margin-left: -1vw;
+        text-align: center;
+        font-size: 45px;
+        color: rgb(38, 136, 178);
+      ">Survey</p>
+    </div>
+  </nav>
+
+  <!-- 頂部框 -->
+  <div class="topSide">
+    <div class="routerBox">
+      <i class='bx bx-home' routerLink="/management/welcome" (click)="showRouterTitle(0)"></i>
+      <span class="subtitle">Backend&nbsp;&nbsp;&nbsp;&nbsp;/
+
+        <span class="routerTitle">{{functionTitle}}</span>
+      </span>
+
+    </div>
+    <i class='bx bx-moon' (click)="isdarkMode = !isdarkMode"></i>
+  </div>
+
+  <!-- 主體內容 -->
+  <div class="mainContent">
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>
+
+</body>

@@ -1,0 +1,189 @@
+<body>
+
+<!-- 頁頭 -->
+<section class="hero is-small is-primary">
+  <div class="hero-body">
+    <p class="title" routerLink="">Survey</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="functionZone">
+
+
+
+    <div class="menu">
+      <div class="link" (click)="addQuiz(1)">
+          <p class="add-quest-option link-icon">
+            <i class='bx bx-radio-circle-marked'></i>
+          </p>
+        <span class="link-title">單選題</span>
+      </div>
+      <div class="link" (click)="addQuiz(2)">
+        <p class="add-quest-option link-icon">
+          <i class='bx bx-check-square'></i>
+        </p>
+        <span class="link-title">多選題</span>
+      </div>
+      <div class="link"  (click)="addQuiz(3)">
+        <p class="add-quest-option link-icon">
+          <i class='bx bx-notepad'></i>
+        </p>
+        <span class="link-title">文字題</span>
+      </div>
+
+      <div class="link" (click)="addQuiz(4)">
+        <p class="add-quest-option link-icon">
+          <i class='bx bx-star' ></i>
+        </p>
+        <span class="link-title">評量題</span>
+      </div>
+
+    </div>
+
+
+    <div class="outline">
+      <nz-divider style="
+        color: rgb(167, 11, 66);
+        font-size: 1.5rem;
+        border-color: rgb(99, 138, 8);"
+      nzText="大綱" nzVariant="dotted"></nz-divider>
+      <div class="main-point">
+        @for(quiz of quizArray; track $index) {
+          @switch (quiz.type) {
+            @case ("Single") {
+              <p>{{$index + 1}}. 單選題</p>
+            }
+            @case ("Multi") {
+              <p>{{$index + 1}}. 多選題</p>
+            }
+            @case ("Text") {
+              <p>{{$index + 1}}. 文字題</p>
+            }
+            @case ("Star") {
+              <p>{{$index + 1}}. 評量題</p>
+            }
+          }
+        }
+      </div>
+    </div>
+  </div>
+
+ <div></div>
+<!-- 問卷主體 -->
+  <div class="quest-main">
+    <h1 id="quizTitle">{{title}}</h1>
+    <p id="quizdescription">{{description}}</p>
+
+    @for(quiz of quizArray; track $index; let TitIndex = $index) {
+
+    <!-- 單選題 -->
+    @if (quiz.type == "Single") {
+      <div class="quest-box">
+        <div class="radio-quest">
+          <div id="radio-box">
+            <span><span style="color: blue;font-size: 1.5rem;">{{TitIndex + 1}}.</span> 單選題 </span><input type="text" (change)="changeTitle(TitIndex)" value="{{quiz.title}}" class="input is-warning quiz-title" placeholder="問題標題"><br>
+            <div class="quiz{{TitIndex}}">
+
+            @for(option of quiz.options; track $index) {
+
+              <p><i class='bx bx-radio-circle'></i><input type="text" class="input is-warning quiz-option" value="{{option}}" (change)="changeOption(TitIndex, $index)" placeholder="問題選項"><i class='bx bx-no-entry' (click)="deleteQuizOption(TitIndex, $index)"></i></p>
+            }
+          </div>
+          </div>
+          <div class="selectZone">
+            <i class='bx bx-plus' (click)="addOption(TitIndex)"></i>
+            <i class='bx bxs-trash-alt' (click)="deleteQuiz(TitIndex)"></i>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- 多選題 -->
+    @if (quiz.type == "Multi") {
+      <div class="quest-box">
+        <div class="checkbox-quest">
+          <div id="check-box">
+            <span><span style="color: blue;font-size: 1.5rem;">{{TitIndex + 1}}.</span> 多選題 </span><input type="text" class="input is-warning quiz-title" (change)="changeTitle(TitIndex)" value="{{quiz.title}}" placeholder="問題標題"><br>
+            <div class="quiz{{TitIndex}}">
+              @for(option of quiz.options; track $index) {
+                <p><i class='bx bx-checkbox'></i><input type="text" class="input is-warning quiz-option" value="{{option}}" (change)="changeOption(TitIndex, $index)" placeholder="問題選項"><i class='bx bx-no-entry' (click)="deleteQuizOption(TitIndex, $index)"></i></p>
+              }
+            </div>
+
+          </div>
+          <div class="selectZone">
+            <i class='bx bx-plus' (click)="addOption(TitIndex)"></i>
+            <i class='bx bxs-trash-alt' (click)="deleteQuiz(TitIndex)"></i>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- 文字題 -->
+    @if (quiz.type == "Text") {
+      <div class="quest-box">
+        <div class="text-quest">
+          <span><span style="color: blue;font-size: 1.5rem;">{{TitIndex + 1}}.</span> 文字題 </span><input type="text" class="input is-warning quiz-title" (change)="changeTitle(TitIndex)" value="{{quiz.title}}" placeholder="問題標題"><br>
+          <div style="padding-left: 15%; padding-right: 15%;">
+            <textarea
+            class="textarea is-primary"
+            rows="2"
+            placeholder="文本框"
+            ></textarea>
+          </div>
+          <div class="selectZone">
+            <i class='bx bxs-trash-alt' (click)="deleteQuiz(TitIndex)"></i>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- 評量題 -->
+    @if (quiz.type == "Star") {
+      <div class="quest-box">
+        <div class="Assessment-quest">
+          <span><span style="color: blue;font-size: 1.5rem;">{{TitIndex + 1}}.</span> 評量題 </span><input type="text" class="input is-warning quiz-title" (change)="changeTitle(TitIndex)" value="{{quiz.title}}" placeholder="問題標題"><br>
+          <div>
+            <i class='bx bx-star' ></i>
+            <i class='bx bx-star' ></i>
+            <i class='bx bx-star' ></i>
+            <i class='bx bx-star' ></i>
+            <i class='bx bx-star' ></i>
+          </div>
+          <div class="selectZone">
+            <i class='bx bxs-trash-alt' (click)="deleteQuiz(TitIndex)"></i>
+          </div>
+        </div>
+      </div>
+    }
+
+  }
+  </div>
+
+
+
+
+</div>
+
+
+<div class="save-push">
+
+
+  <nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100">
+    <ng-template #tpl>
+      <div class="ant-back-top-inner"><i class='bx bx-arrow-to-top' ></i></div>
+    </ng-template>
+  </nz-back-top>
+
+  <button  class="button is-info is-rounded" (click)="completeQuiz(false)">
+    <i class='bx bxs-save' ></i>
+    <span>儲存</span>
+  </button>
+  <button  class="button is-info is-rounded" (click)="completeQuiz(true)">
+    <i class='bx bx-navigation'></i>
+    <span>發布</span>
+  </button>
+</div>
+
+</body>

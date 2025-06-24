@@ -1,0 +1,78 @@
+<body>
+    <section class="hero is-small is-primary">
+        <div class="hero-body">
+          <p class="title" (click)="reset()" routerLink="">Survey</p>
+        </div>
+    </section>
+
+
+    <div class="container" [ngClass]="{'active': isBoolean}">
+        <div class="form-box login">
+            <form action="">
+                <h1>登入會員</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" #loginUser id="loginUser" (keyup)="clearError()">
+                    <i class='bx bxs-user'></i>
+
+                </div>
+                <div class="input-box">
+                    <input type="password" id="loginPassword" #loginPassword placeholder="Password" (keyup)="clearError()">
+                    <i class='bx bxs-lock-alt'></i>
+
+                </div>
+                <div class="forget-link">
+                    <p class="error" style="text-align: left;">&nbsp;</p>
+                </div>
+                <button class="btn"  type="button" style="margin-top: 10px;" (click)="submitValid()" routerLink="/management/welcome">登入</button>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#"><i class='bx bxl-google'></i></a>
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <form action="">
+                <h1>註冊會員</h1>
+                <div class="input-box">
+                    <input type="text" id="register0" placeholder="Username" (input)="registerInput(0)" pattern="[A-Za-z0-9]{6,12}" required>
+                    <i class='bx bxs-user'></i>
+                    <p class="error" style="text-align: left;"></p>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="register1" name="email" placeholder="Email" [(ngModel)]="regEmailValue" (input)="registerInput(1)" pattern="\S[a-z0-9_\.]*@[a-z0-9]+\.com[a-z0-9]*" required>
+                    <i class='bx bxs-envelope'></i>
+                    <p class="error" style="text-align: left;"></p>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="register2" name="password" placeholder="Password" (keyup)="registerInput(2)"  pattern="[A-Za-z0-9]{8,16}" required>
+                    <i class='bx bxs-lock-alt'></i>
+                    <p class="error" style="text-align: left;"></p>
+                </div>
+                <button type="submit" class="btn registerBtn" (click)="registerSubmit()">註冊</button>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#"><i class='bx bxl-google'></i></a>
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Hello, Welcome!</h1>
+                <p>Don't have an account?</p>
+                <button (click)="toggleBtn()" class="btn register-btn">註冊會員</button>
+            </div>
+
+            <div class="toggle-panel toggle-right">
+                <h1>Welcome Back!</h1>
+                <p>Already have an account?</p>
+                <button (click)="toggleBtn()" class="btn login-btn">登入會員</button>
+            </div>
+        </div>
+
+
+    </div>
+</body>

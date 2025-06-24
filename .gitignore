@@ -1,0 +1,12 @@
+# 前端忽略
+frontend/node_modules/
+frontend/dist/
+
+# 後端忽略
+backend/target/
+
+# IDE 與系統檔
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,206 @@
+// 整體布局
+body {
+  position: relative;
+}
+
+.container {
+  padding-top: 5vh;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.hero {
+  min-width: 100%;
+  position: fixed;
+  z-index: 5;
+}
+
+.hero-body p {
+  width: 8rem;
+  cursor: pointer;
+}
+
+// 左側功能區
+.functionZone {
+  top: 12vh;
+  left: 6vw;
+  position: fixed;
+  margin-right: 50px;
+}
+
+.menu {
+  width: 350px;;
+  padding: 0.5rem;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px 0 rgba(#000, 0.075);
+}
+
+.link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 50px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transform-origin: center left;
+  transition: width 0.2s ease-in;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  &:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    display: block;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    transform: translateX(100%);
+    transition: transform 0.2s ease-in;
+    transform-origin: center right;
+    background-color: #eee;
+  }
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    width: 130px;
+    color: rgb(22, 161, 216);
+
+    &:before,
+    .link-title {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+.link-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  flex-shrink: 0;
+  left: 18px;
+  position: absolute;
+}
+
+.link i {
+  font-size: 28px;
+}
+
+.link-title {
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in;
+  transform-origin: center right;
+  display: block;
+  text-align: center;
+  text-indent: 28px;
+  font-weight: 800;
+  width: 100%;
+}
+
+
+
+// 大綱
+.outline {
+  margin-top: 20px;
+  max-height: 75vh;
+  overflow: auto;
+  background: rgb(244, 164, 164);
+  text-align: center;
+  border-radius: 15px;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-bottom: 5%;
+
+  .main-point {
+    display: grid;
+    place-items: center;
+    border-left: 3px ridge rgb(253, 195, 217);
+    border-right: 3px ridge rgb(253, 195, 217);
+    p {
+      margin: 1px;
+      border-radius: 10px;
+      width: 35%;
+      background: #f9ddd8;
+    }
+  }
+}
+
+
+// 問卷主體
+.quest-main {
+  margin-top: 7vh;
+  margin-left: 20%;
+  border-radius: 15px;
+  padding: 5px;
+  background: rgb(63, 207, 113);
+  width: 150vw;
+  text-align: center;
+}
+
+.quest-main h1 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.quest-box {
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px dashed black;
+  margin-bottom: -1px;
+}
+
+.quest-box input {
+  margin-bottom: 15px;
+  width: 50%;
+}
+
+.quest-box i,.quest-box span {
+  font-size: 1.2rem;
+  line-height: 35px;
+  margin: 5px;
+}
+
+.bx {
+  cursor: pointer;
+}
+
+// 發布&儲存
+.save-push {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1rem;
+}
+
+.save-push button {
+  margin: 3px;
+}
+
+// 回到頂部
+:host ::ng-deep .ant-back-top {
+  bottom: 100px;
+}
+
+:host ::ng-deep .ant-back-top-inner {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  border-radius: 4px;
+  background-color: #1088e9;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+
+:host ::ng-deep strong {
+  color: #1088e9;
+}

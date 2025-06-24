@@ -1,0 +1,148 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.light {
+  --background-primary: rgb(255, 255, 255);
+  --textTitle-color: rgb(98, 121, 197);
+  --routerText-color:rgb(19, 144, 163);
+  --background-border: rgb(111, 123, 152);
+}
+
+.dark {
+  --background-primary: rgba(17,19,21);
+  --textTitle-color: rgb(145, 148, 148);
+  --routerText-color: rgb(167, 229, 255);
+  --background-border: rgba(32,34,36);
+}
+
+.container {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  background: var(--background-border);
+  gap: 3px;
+  grid-template-rows: 10% repeat(2,1fr);
+  grid-template-columns: 12% repeat(3,1fr);
+}
+
+// 左側導覽框
+.leftSide {
+
+  background: var(--background-primary);
+  grid-row: span 3;
+}
+
+.memberInfo {
+
+  padding-top: 12%;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  span {
+    color: var(--routerText-color);
+  }
+}
+
+.memberInfo img {
+  margin-right: 5px;
+  width: 50px;
+  height: 50px;
+}
+
+.functionZone {
+  margin-top: 30px;
+  padding-left: 1vw;
+
+  // 第二個SETTINGS區塊
+  .functionBox:nth-child(2) {
+    margin-top: 40px;
+  }
+
+  .functionBox p {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+}
+
+.item {
+  margin-top: 10px;
+  color: var(--textTitle-color);
+
+  button,
+  i
+   {
+    padding-left: 0.5vw;
+    line-height: 43px;
+    font-size: 18px;
+  }
+}
+
+.active {
+  background: rgba(55, 129, 249, 0.77);
+  color: black !important;
+  border-radius: 20px;
+  width: 80%;
+}
+
+// 頂部框
+.topSide {
+
+  background: var(--background-primary);
+  grid-column: span 3;
+  padding-left: 1.5%;
+  padding-right: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 30px;
+  .subtitle {
+    color: var(--textTitle-color);
+  }
+  .routerTitle {
+    color: var(--routerText-color);
+  }
+
+  .bx-moon {
+    cursor: pointer;
+  }
+  .bx-moon:hover {
+    color: aquamarine;
+  }
+
+}
+
+.routerBox {
+  display: flex;
+  align-items: center;
+  i {
+    cursor: pointer;
+  }
+  i:hover {
+    color: aquamarine;
+  }
+  span {
+    margin-left: 1.5rem;
+  }
+}
+
+// 主體內容框
+.mainContent {
+  background: var(--background-primary);
+  overflow: hidden;
+  grid-area: span 2 / span 3;
+}
+
+// 帳號
+.menuAccount {
+  background: rgb(55, 55, 55);
+  height: 40px;
+  text-align: center;
+  p {
+    width: 5vw;
+  }
+
+}
+
+

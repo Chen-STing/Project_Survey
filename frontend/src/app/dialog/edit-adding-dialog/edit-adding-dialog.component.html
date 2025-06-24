@@ -1,0 +1,19 @@
+@if(!success) {
+  <h2 mat-dialog-title>確認題目選項</h2>
+  <mat-dialog-content>
+    <p>單選題和多選題，最少都要有兩個選項！</p>
+    <p>題目及選項內也必須要有內容！</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+  <button mat-button mat-dialog-close>確認</button>
+  </mat-dialog-actions>
+}
+@else {
+  <h2 mat-dialog-title>操作成功</h2>
+  <mat-dialog-content>
+    <p>問卷發布、儲存成功！！</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+  <button mat-button mat-dialog-close routerLink="/management/welcome">確認</button>
+  </mat-dialog-actions>
+}

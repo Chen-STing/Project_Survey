@@ -1,0 +1,26 @@
+@switch (state) {
+  @case ("cansal") {
+    <h2 mat-dialog-title>是否取消填寫</h2>
+    <mat-dialog-content>若是取消，回答的資料將可能遺失</mat-dialog-content>
+    <mat-dialog-actions>
+    <button mat-button mat-dialog-close>取消</button>
+    <button mat-button mat-dialog-close (click)="check()">確認</button>
+    </mat-dialog-actions>
+  }
+  @case ("review") {
+    <h2 mat-dialog-title>確認問卷內容</h2>
+    <mat-dialog-content>前往預覽後，將無法再進行修改，是否還要前往</mat-dialog-content>
+    <mat-dialog-actions>
+    <button mat-button mat-dialog-close>取消</button>
+    <button mat-button mat-dialog-close routerLink="/review">確認</button>
+    </mat-dialog-actions>
+  }
+  @default {
+    <h2 mat-dialog-title>個人資訊不完整</h2>
+    <mat-dialog-content>請檢查一下，個人資訊是否填寫完整</mat-dialog-content>
+    <mat-dialog-actions>
+    <button mat-button mat-dialog-close>確認</button>
+    </mat-dialog-actions>
+  }
+}
+

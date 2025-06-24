@@ -1,0 +1,52 @@
+
+  <div class="containerFeed" [ngClass]="{dark: !isdarkMode, light: isdarkMode}">
+    <div class="survey-select">
+      <label for="">選擇問卷：</label>
+      <div class="select is-success">
+        <select [(ngModel)]="selectedValue" (change)="selectFeedback()">
+          <option>-請選擇問卷-</option>
+          @for(quiz of arrayQuiz; track $index) {
+            @if(quiz.status == "收集中" || quiz.status == "已結束") {
+              <option>{{quiz.title}}</option>
+            }
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="table-main">
+      <nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed">
+        <thead>
+          <tr>
+            @for (column of listOfColumn; track column) {
+              @if(column.title == "id" || column.title == "填寫時間") {
+                <th [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                  {{ column.title }}
+                </th>
+              }@else {
+                <th>
+                  {{ column.title }}
+                </th>
+              }
+
+            }
+          </tr>
+        </thead>
+        <tbody >
+          @for (data of sortTable.data; track $index) {
+            <tr>
+              <td>{{ data.id }}</td>
+              <td>{{ data.name }}</td>
+              <td>{{ data.time }}</td>
+              <td>
+                <button class="survey-btn" (click)="getFeedback(data.name)">前往</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+
+    </div>
+
+  </div>
+

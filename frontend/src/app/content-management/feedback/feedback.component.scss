@@ -1,0 +1,112 @@
+.light {
+  --background-primary: #E2C9A0;
+  --select-background: #696751;
+  --tableHeader-color: #FCD072;
+  --tableTbody-color: #ECB25E;
+  --tableOddTbody-color: #DB924B;
+  --textTitle-color: #696751;
+  --text-color: rgb(44, 29, 2);
+}
+
+.dark {
+  --background-primary: #252931;
+  --select-background: #0e0d0e;
+  --tableHeader-color: #2D2D30;
+  --tableTbody-color: #493f41;
+  --tableOddTbody-color: #565a5d;
+  --textTitle-color: rgb(241, 255, 254);
+  --text-color: #8f9e05ba;
+}
+
+// 整體布局
+.containerFeed {
+  width: 95%;
+  height: auto;
+  border-radius: 15px;
+  background: var(--background-primary);
+  padding: 15px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.survey-select {
+  width: 20%;
+  padding-left: 15px;
+  color: #ccedf1;
+  background: var(--select-background);
+  line-height: 40px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+// 表單
+nz-table {
+  tbody {
+    background: var(--tableTbody-color);
+  }
+  th {
+    background: var(--tableHeader-color);
+    color: var(--textTitle-color);
+    font-size: 18px;
+  }
+  // id
+  th:nth-child(1) {
+    width: 10%;
+  }
+  // 姓名
+  th:nth-child(2) {
+    width: 30%;
+  }
+  // 填寫時間
+  th:nth-child(3) {
+    width: 45%;
+  }
+  // 結果
+  th:nth-child(4) {
+    width: 15%;
+  }
+  tr:nth-child(odd) {
+    background: var(--tableOddTbody-color);
+  }
+  td span {
+    width: 50px;
+  }
+  td {
+    color: var(--text-color);
+  }
+}
+
+// 創建視窗
+.create-box {
+  position: absolute;
+  top: 0;
+  right: 40rem;
+  background: rgb(243, 236, 236);
+  width: 30%;
+  border-radius: 20px;
+  z-index: 100;
+  button {
+    background: #5e6ec9;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    color: #eee1ff;
+  }
+  button:hover {
+    opacity: 0.7;
+    color: #010917;
+  }
+}
+
+
+// 問卷按鈕
+.survey-btn {
+  width: 5rem;
+  border: 3px groove rgb(253, 253, 253);
+  border-radius: 15px;
+}
+
+.survey-btn:hover {
+  background-color: rgb(41, 4, 31);
+  color: #eee1ff
+}

@@ -1,0 +1,74 @@
+* {
+  padding: 0;
+  margin: 0 auto;
+}
+
+// 兩者模式
+.light {
+  --title-color: rgb(18, 13, 13);
+  --background-primary: rgb(255, 255, 255);
+  --box-background-color: #BF9780;
+  --icon-color: rgb(54, 53, 53);
+  --title-color: #36301b;
+}
+
+.dark {
+  --title-color: rgb(217, 211, 211);
+  --background-primary: rgba(17,19,21);
+  --box-background-color: #293667;
+  --icon-color: rgb(179, 171, 171);
+  --title-color: #d0d1d9;
+
+}
+
+body {
+  background: var(--background-primary);
+  section {
+    overflow: hidden;
+    height: 95vh;
+  }
+}
+
+.titleBox {
+  // background-color: azure;
+  width: 1000px;
+  margin-bottom: 100px;
+  margin-top: -100px;
+  .title {
+    font-size: 3.5rem;
+    color: var(--title-color);
+  }
+  .subtitle {
+    font-size: 1.5rem;
+    color: var(--title-color);
+  }
+}
+
+.content {
+  display: flex;
+  width: 1000px;
+  flex-wrap: nowrap;
+  height: auto;
+  justify-content: space-evenly;
+  .box {
+    padding-top: 50px;
+    font-size: 110px;
+    line-height:100px;
+    text-align: center;
+    border-radius: 50px;
+    width: 300px;
+    height: 300px;
+    background: var(--box-background-color);
+    i {
+      color: var(--icon-color);
+    }
+    p.title {
+      color: var(--title-color);
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    p.subtitle {
+      color: var(--title-color);
+    }
+  }
+}

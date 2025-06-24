@@ -1,0 +1,31 @@
+<div class="dialogBody">
+  <nz-descriptions nzBordered>
+    <nz-descriptions-item [nzSpan]="3" nzTitle="姓名">{{feedbackList.name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Id">{{feedbackList.id}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="年齡">{{feedbackList.age}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="性別">{{feedbackList.gender}}</nz-descriptions-item>
+    <nz-descriptions-item [nzSpan]="3" nzTitle="信箱">{{feedbackList.email}}</nz-descriptions-item>
+  </nz-descriptions>
+  <nz-descriptions nzBordered nzLayout="vertical">
+  @for(data of feedbackList.questAnswerList; track $index) {
+    @switch (data.type) {
+      @case ("Multi") {
+        <nz-descriptions-item [nzSpan]="3" nzTitle="{{data.questId}}. {{data.questionTitle}}">
+        @for (item of data.answers; track $index) {
+          <span class="response">{{item}}</span>&nbsp;
+        }
+        </nz-descriptions-item>
+      }
+      @case ("Star") {
+        <nz-descriptions-item [nzSpan]="3" nzTitle="{{data.questId}}. {{data.questionTitle}}">
+          {{data.answers}} <i class='bx bx-star' ></i>
+        </nz-descriptions-item>
+      }
+      @default {
+        <nz-descriptions-item [nzSpan]="3" nzTitle="{{data.questId}}. {{data.questionTitle}}">{{data.answers}}</nz-descriptions-item>
+      }
+    }
+  }
+
+  </nz-descriptions>
+</div>

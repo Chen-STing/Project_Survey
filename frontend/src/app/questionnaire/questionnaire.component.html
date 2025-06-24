@@ -1,0 +1,208 @@
+<body>
+
+@if (!isTrue) {
+  <!-- 問卷資訊 -->
+  <div class="card">
+    <div class="card-content">
+
+        <article class="message is-info">
+          <div class="message-header">
+            <h1 class="mg-title">{{quizTitle}}</h1>
+            <h5>問卷時間： {{startDate}} ~ {{endDate}}</h5>
+          </div>
+          <div class="message-body">
+            <p>{{quizDescription}}</p>
+            <!-- <p>如果你有機會轉變成動物的形態，你會選擇成為哪一種動物，為什麼？你是否會選擇成為一種能在陸地上奔跑的陸生動物，以感受自由與速度的刺激，或者你更傾向於成為一種飛禽，能夠自由翱翔於天際？你的選擇是否受到對大自然的喜愛或對特定動物的崇敬所影響？又或者你會選擇成為一種水生生物，沉浸在深藍色的海洋中，享受寧靜和神秘的海底生活？你想透過變成某種特定的動物來體驗不同的感官和生活方式嗎？請分享你對這個想像情境的看法和理由。</p> -->
+          </div>
+        </article>
+
+      <!-- 受訪者資訊 -->
+        <div class="subtitle userInfo">
+          <div class="user-item">
+            <label for="">姓名：</label>
+            <input class="input is-info" type="text" placeholder="請輸入您的名字"/>
+          </div>
+          <div class="user-item">
+            <label for="">年齡：</label>
+            <input class="input is-info" type="text" placeholder="請輸入您的年齡"/>
+          </div>
+          <div class="user-item">
+            <label for="">信箱：</label>
+            <input class="input is-info" type="email" placeholder="請輸入您的信箱"/>
+          </div>
+          <div class="user-item">
+            <label for="">性別：</label>
+            <input type="radio" name="gender" value="男">男
+            <input type="radio" name="gender" value="女">女
+          </div>
+        </div>
+
+    </div>
+
+
+    <!-- 取消、確認按鍵 -->
+      <footer class="card-footer">
+        <p class="card-footer-item" routerLink="">
+
+        取消
+
+        </p>
+        <p class="card-footer-item" (click)="toggle()">
+
+        確認
+
+        </p>
+      </footer>
+  </div>
+}
+
+
+
+  @if(isTrue) {
+    <div class="containerQuest">
+      <!-- 進度覽 -->
+      <nz-steps [nzCurrent]="current">
+        @for(step of arrayData.slice(0,showPage); track $index) {
+          @switch (step.questState) {
+            @case ("Single") {
+              <nz-step nzTitle="單選題"></nz-step>
+            }
+            @case ("Multi") {
+              <nz-step nzTitle="多選題"></nz-step>
+            }
+            @case ("Text") {
+              <nz-step nzTitle="文字題"></nz-step>
+            }
+            @case ("Star") {
+              <nz-step nzTitle="評量題"></nz-step>
+            }
+          }
+        }
+      </nz-steps>
+
+      <!-- 問卷本體 -->
+      <form class="quest-content">
+        @for(data of arrayData; track $index; let quizIndex = $index) {
+          <!-- 單個問卷題目 -->
+          <div class="question-box" [ngClass]="{hide: $index > 0}">
+            <h1>{{data.title}}</h1>
+
+            <div class="option control">
+
+              <!-- 單選題 -->
+              @if (data.questState == "Single") {
+                <div class="box{{quizIndex}} option-box" style="width: vw;">
+                @for (option of data.option; track $index) {
+                  <label class="radio">
+                    <input class="quiz{{quizIndex}}" (click)="call()" type="radio" name="{{quizIndex}}" value="{{data.option[$index]}}" required="required">
+                    {{data.option[$index]}}
+                  </label>
+                }
+                @switch (data.option.length % 3) {
+                  @case (1) {
+                    <!-- 補2個空白對齊 -->
+                    <label class="radio"></label>
+                    <label class="radio"></label>
+                  }
+                  @case (2) {
+                    <!-- 補1個空白對齊 -->
+                    <label class="radio"></label>
+                  }
+                }
+                </div>
+              }
+
+                <!-- 多選題 -->
+                @if (data.questState == "Multi") {
+                  <div class="box{{quizIndex}}  option-box">
+                  @for (option of data.option; track $index) {
+                    <label class="checkbox">
+                      <input class="quiz{{quizIndex}}" (click)="call()" type="checkbox" name="{{quizIndex}}" value="{{data.option[$index]}}" required="required">
+                      {{data.option[$index]}}
+                    </label>
+                  }
+                  @switch (data.option.length % 3) {
+                    @case (1) {
+                      <!-- 補2個空白對齊 -->
+                      <label class="checkbox"></label>
+                      <label class="checkbox"></label>
+                    }
+                    @case (2) {
+                      <!-- 補1個空白對齊 -->
+                      <label class="checkbox"></label>
+                    }
+                  }
+                  </div>
+                }
+
+                <!-- 文字題 -->
+                @if (data.questState == "Text") {
+                  <div style="width: 80%;margin-top: 50px;" class="box{{quizIndex}}  option-box">
+                    <textarea
+                      class=" textarea"
+                      placeholder="請回答問題"
+                      rows="10"
+                      required="required"
+                      (click)="call()"
+                    ></textarea>
+                  </div>
+                  }
+
+                <!-- 評量題 -->
+                @if (data.questState == "Star") {
+                  <div class="option-star box{{quizIndex}}">
+                    <i class='bx bxs-star' id="{{$index}}-1" (click)="selectStar($event, $index)"></i>
+                    <i class='bx bxs-star' id="{{$index}}-2" (click)="selectStar($event, $index)"></i>
+                    <i class='bx bxs-star' id="{{$index}}-3" (click)="selectStar($event, $index)"></i>
+                    <i class='bx bxs-star' id="{{$index}}-4" (click)="selectStar($event, $index)"></i>
+                    <i class='bx bxs-star' id="{{$index}}-5" (click)="selectStar($event, $index)"></i>
+                  </div>
+                  }
+
+                </div>
+
+
+          </div>
+
+        }
+        <p class="warning hide"> 請選擇選項 或者 回答問題！！！</p>
+
+        <!-- 控制按鈕 -->
+        <div class="steps-action">
+
+          <button class="button is-success" (click)="checkDialog('cansal')">
+            <span>取消</span>
+          </button>
+
+          <div></div>
+            @if (current > 0) {
+              <button class="button is-success" nz-button nzType="default" (click)="pre()">
+                <span>返回</span>
+              </button>
+            }
+            @if (current < arrayData.length - 1) {
+              <button type="submit" class="button is-success nextSubmit" nz-button nzType="default" (click)="next()">
+                <span>下一步</span>
+              </button>
+            }
+            @if (current === arrayData.length - 1) {
+              <button type="submit" class="button is-success" nz-button nzType="primary" (click)="done()">
+                <span>預覽</span>
+              </button>
+            }
+
+        </div>
+      </form>
+
+    </div>
+
+
+  }
+
+
+</body>
+
+
+
+
+

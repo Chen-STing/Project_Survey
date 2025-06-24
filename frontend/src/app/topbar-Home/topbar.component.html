@@ -1,0 +1,217 @@
+<body>
+    <section class="hero is-info is-large">
+
+        <!-- 頭部導航欄 -->
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <div class="navbar-item search">
+                            <div (click)="isBoolean = !isBoolean" [ngClass]="{'active': isBoolean}" class="search-box button is-info is-inverted">
+                                <i class='bx bx-search'></i>
+                                <p>Search</p>
+                            </div>
+                        </div>
+                    </div>
+              @if(!token) {
+                <div id="navbarMenuHeroB" class="navbar-menu">
+                  <div class="navbar-end">
+                      <span class="navbar-item">
+                          <p class="button is-info is-inverted" routerLink="/login">
+                          <span class="icon">
+                              <i class='bx bx-log-in'></i>
+                          </span>
+                          <span>會員登入</span>
+                          </p>
+                     </span>
+                  </div>
+                </div>
+              }
+              @else {
+                <div id="navbarMenuHeroB" class="navbar-menu">
+                  <div class="navbar-end">
+                      <span class="navbar-item">
+                          <p mat-button [matMenuTriggerFor]="menu" class="button is-info is-inverted">
+                          <span class="icon">
+                            <i class='bx bx-log-out'></i>
+                          </span>
+                          <span>{{account}}</span>
+                          </p>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item routerLink="/management/welcome">前往後臺管理</button>
+                            <button mat-menu-item (click)="logOut()">會員登出</button>
+                          </mat-menu>
+                     </span>
+                  </div>
+                </div>
+              }
+
+
+            </div>
+          </nav>
+        </div>
+
+      <div class="hero-body">
+
+        <div class="wrapper">
+          <input type="checkbox" id="toogle" class="hidden-trigger" (change)="showNav()">
+          <label for="toogle" class="circle">
+            <span class="title">Survey</span>
+          </label>
+
+
+          <div class="subs">
+          @for (question of questionData; track $index) {
+            @if(question.startDate > nowDate) {
+              <button class="sub-circle" id="sub-{{question.id}}" (mouseenter)="showShadow()" (mouseleave)="closeShadow()" (click)="catchQuizId(question.id)">
+                <input value="1" name="sub-circle" type="radio" id="sub{{$index + 1}}" class="hidden-sub-trigger" (click)="openDialog(question)">
+                <p style="
+                  background: rgb(17, 126, 242);
+                  color: rgb(118, 248, 31);
+                ">id: {{question.id}}</p>
+                <label class="question-title-box" id="label-{{question.id}}" for="sub{{$index + 1}}">
+                  <h2>{{question.title}}</h2>
+                  <p id="endDate-{{question.id}}" style="
+                  color: rgb(66, 55, 55);
+                  font-size: 14px;
+                  position: absolute;
+                  left: 12%;
+                  bottom: 8%;
+                  ">截止日期： {{question.endTime}}</p>
+                </label>
+              </button>
+              }@else {
+                <button class="sub-circle" id="sub-{{question.id}}" (mouseenter)="showShadow()" (mouseleave)="closeShadow()" (click)="catchQuizId(question.id)" routerLink="/questionnaire">
+                  <input value="1" name="sub-circle" type="radio" id="sub{{$index + 1}}" class="hidden-sub-trigger">
+                  <p style="
+                    background: rgb(17, 126, 242);
+                    color: rgb(118, 248, 31);
+                  ">id: {{question.id}}</p>
+                  <label class="question-title-box" id="label-{{question.id}}" for="sub{{$index + 1}}">
+                    <h2>{{question.title}}</h2>
+                    <p id="endDate-{{question.id}}" style="
+                    color: rgb(66, 55, 55);
+                    font-size: 14px;
+                    position: absolute;
+                    left: 12%;
+                    bottom: 8%;
+                    ">截止日期： {{question.endTime}}</p>
+                  </label>
+                </button>
+              }
+            }
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- 彈出搜尋視窗 -->
+    @if(isBoolean) {
+      <div class="card">
+        <div class="card-content">
+          <div class="field">
+            <p class="control is-expanded has-icons-left">
+              <input id="searchInput" class="input" type="text" placeholder="Search ..." (keypress)="($event.which === 13 ? find() : 0)">
+              <span class="icon is-small is-left">
+                <i class='bx bx-search'></i>
+              </span>
+            </p>
+          </div>
+          <p id="searchLog" class="subtitle">搜尋紀錄</p>
+        </div>
+        <footer class="card-footer" style="display: flex;justify-content: space-evenly;">
+          <form [formGroup]="dateFormGroup">
+            <p class="card-footer-item">
+              <nz-date-picker id="startdate" formControlName="startDate" nzBorderless nzPlaceHolder="請輸入開始日期"></nz-date-picker>
+            </p>
+          </form>
+          <div style="border: 0.1px dotted rgb(226, 226, 226);"></div>
+          <form [formGroup]="dateFormGroup">
+            <p class="card-footer-item">
+              <nz-date-picker id="enddate" formControlName="endDate" nzBorderless nzPlaceHolder="請輸入結束日期"></nz-date-picker>
+            </p>
+          </form>
+        </footer>
+      </div>
+
+      <!-- 背景黑色透明遮罩 -->
+      <div class="mask-dark"
+      style="
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      z-index: 1;
+      "
+      (click)="isBoolean = !isBoolean">
+      </div>
+        }
+
+
+   <!-- 下列導航碼 -->
+  @if(isShowNav) {
+    <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+      <ul class="pagination-list">
+        <li><a href="#" class="pagination-previous" (click)="pre()" [ngClass]="{limit: currentPage == 1}">
+          <i class='bx bxs-chevron-left-circle'></i></a>
+        </li>
+
+          @for(page of paginationList; track $index) {
+            @if($index == 0) {
+            <li><a href="#" class="pagination-link is-current" id="page-{{$index + 1}}" (click)="togglePage($index + 1)">{{$index + 1}}</a></li>
+            }@else {
+              <li><a href="#" class="pagination-link" id="page-{{$index + 1}}" (click)="togglePage($index + 1)">{{$index + 1}}</a></li>
+            }
+          }
+
+        <li><a href="#" class="pagination-next" (click)="next()" [ngClass]="{limit: currentPage == paginationList.length}">
+          <i class='bx bxs-chevron-right-circle'></i></a>
+        </li>
+
+        <!-- <li><a href="#" class="pagination-previous">
+          <i class='bx bxs-chevron-left-circle'></i></a>
+        </li>
+        <li><a href="#" class="pagination-link" aria-label="Goto page 1">1</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <li><a href="#" class="pagination-link" aria-label="Goto page 45">45</a></li>
+        <li>
+          <a
+          class="pagination-link is-current"
+          aria-label="Page 46"
+          aria-current="page"
+          >46</a>
+        </li>
+        <li><a href="#" class="pagination-link" aria-label="Goto page 47">47</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <li><a href="#" class="pagination-link" aria-label="Goto page 86">86</a></li>
+        <li><a href="#" class="pagination-next">
+            <i class='bx bxs-chevron-right-circle'></i></a>
+        </li> -->
+      </ul>
+    </nav>
+  }
+
+  <!-- dialog -->
+  <dialog class="dialog" #dialog>
+      <header class="card-header" style="margin-bottom: 7px;">
+        <h1 class="title" style="font-size: 2rem;"></h1>
+      </header>
+      <div class="card-content" style="margin-bottom: 16px;">
+        <h2 class="subtitle" style="font-size: 1.2rem;color: #3b6ea5;"></h2>
+        <span class="subtitle">問卷開始時間：</span>
+        <span class="content subtitle"></span>
+      </div>
+      <footer class="card-footer" (click)="dialog.close()" style="background: #6ba4d6;cursor: pointer;">
+        <button class="cancel"
+        style="font-size: 1rem;color: #153a58;background: #6ba4d6;margin: auto">
+          確認
+        </button>
+      </footer>
+
+  </dialog>
+
+
+</body>

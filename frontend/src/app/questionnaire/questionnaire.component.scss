@@ -1,0 +1,170 @@
+* {
+  padding: 0;
+  margin: 0 auto;
+}
+
+body {
+  overflow: hidden;
+}
+
+.card {
+  margin-top: 10rem;
+  width: 80%;
+}
+
+// 問卷-簡介說明
+.message-header {
+  text-align: left;
+  position: relative;
+}
+
+.mg-title {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.message-body {
+  padding: 25px;
+}
+
+// 受訪者資訊
+.userInfo {
+  text-align: center;
+  padding: 35px;
+}
+.input {
+  width: 50%;
+}
+.user-item {
+  padding: 15px;
+  line-height: 40px;
+}
+.user-item:nth-child(4) input {
+  width: 25px;
+}
+
+// 取消確認按鈕
+.card-footer {
+  background: rgba(42, 182, 193, 0.6);
+  cursor: pointer;
+}
+
+.card-footer-item:nth-child(1):hover {
+  color: rgb(176, 244, 30);
+  background: rgba(42, 182, 193);
+  border-radius: 0px 0px 0px 10px;
+}
+
+.card-footer-item:nth-child(2):hover {
+  color: rgb(176, 244, 30);
+  background: rgba(42, 182, 193);
+  border-radius: 0px 0px 10px 0px;
+}
+
+
+// 問卷選項
+.containerQuest {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.question-box {
+  position: relative;
+  margin-top: 5rem;
+  text-align: center;
+  height: 37rem;
+}
+
+.question-box h1 {
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+
+// 選項字體
+.option-box {
+  display: flex;
+  font-size: 2.5rem;
+  flex-wrap: wrap;
+  // 限制每row 只有3個
+  .radio {
+    flex: 33.33%;
+  }
+  .checkbox {
+    flex: 33.33%;
+  }
+}
+
+// 單選樣式
+.radio {
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 14%;
+  margin-bottom: 0.7rem;
+}
+
+.radio input {
+  width: 18px;
+  height: 18px;
+}
+
+// 多選樣式
+.checkbox {
+  text-align: left;
+  padding-top: 15px;
+  padding-left: 11%;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+}
+
+// 評量樣式
+.option-star {
+  font-size: 3rem;
+}
+
+.bxs-star {
+  color: rgb(190, 190, 190);
+}
+
+.bxs-star:hover {
+  color: rgb(186, 45, 45);
+}
+
+.high-star {
+  color: rgb(214, 131, 131);
+}
+
+// 內容隱藏
+.hide {
+  display: none;
+}
+
+.warning {
+  position: absolute;
+  left: 40%;
+  font-size: 2rem;
+  color: red;
+}
+// 控制按鈕
+.steps-action {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px 100px;
+  button {
+    margin-top: 140px;
+    width: 4rem;
+    height: 2rem;
+  }
+
+  button:nth-child(1) {
+    background: rgb(73, 166, 212);
+  }
+}
+
+
+

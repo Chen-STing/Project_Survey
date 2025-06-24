@@ -1,0 +1,49 @@
+<div class="container is-fluid">
+    <div class="notification is-primary">
+        <h1 class="title">{{questObj.title}}</h1>
+        <div class="userInfo-box">
+            <nz-divider nzText="訪問者資訊" nzVariant="solid" nzOrientation="left"></nz-divider>
+            <h3 class="subtitle"><strong>受訪者： {{questObj.userName}}</strong></h3>
+            <h3 class="subtitle"><strong>年齡： {{questObj.userAge}}</strong></h3>
+            <h3 class="subtitle"><strong>信箱： {{questObj.userEmail}}</strong></h3>
+            <h3 class="subtitle"><strong>性別： {{questObj.userGender}}</strong></h3>
+            <nz-divider style="font-size: 1.5rem;" nzText="問卷題目" nzVariant="dotted"></nz-divider>
+        </div>
+        @for (data of questObj.questions;track $index) {
+            <div class="question-box">
+                <h2 class="subtitle">{{$index + 1}}. {{data.questionTitle}}</h2>
+                <!-- 各自判定是否有值 -->
+                @switch (data.type) {
+                  @case ("Single") {
+                    <p class="response">{{data.response}}</p>
+                  }
+                  @case ("Multi") {
+                    @for (item of data.response; track $index) {
+                      <span class="response">{{item}}</span>
+                    }
+                  }
+                  @case ("Text") {
+                    <p class="response">{{data.response}}</p>
+                  }
+                  @case ("Star") {
+                  <p class="response">{{data.response}}
+                    <i class='bx bx-star' ></i>
+                  </p>
+                  }
+                }
+
+            </div>
+        }
+      </div>
+
+      <div class="save-push">
+        <button  class="button is-info is-rounded" (click)="check('cansal')">
+
+          <span>取消</span>
+        </button>
+        <button type="submit" class="button is-info is-rounded" (click)="check('')">
+
+          <span>提交</span>
+        </button>
+      </div>
+</div>

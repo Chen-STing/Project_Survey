@@ -1,0 +1,76 @@
+<body [ngClass]="{dark: !isdarkMode, light: isdarkMode}">
+
+  <div class="select">
+      <select [(ngModel)]="selectedValue" (change)="selectQuiz()">
+        <option>-請選擇問卷-</option>
+        @for(quiz of arrayQuiz; track $index) {
+          @if(quiz.status == "已結束") {
+            <option>{{quiz.title}}</option>
+          }
+        }
+    </select>
+  </div>
+
+
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">總共問卷數
+        <i class='bx bx-notepad'></i>
+      </p>
+      <p class="title">{{total}}
+        <span>份</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="age-chart">
+    <canvas id="ageChart"></canvas>
+  </div>
+
+
+  <div class="gender-chart" style="padding-top: 5px;">
+    <canvas id="genderChart"></canvas>
+  </div>
+
+  <div class="optionContent">
+    <div class="select">
+      <select [(ngModel)]="selectedOption" (change)="selectOption()">
+        <option>-請選擇題型-</option>
+        @for(item of statisticsList; track $index) {
+          <option>{{item.questTitle}}</option>
+        }
+      </select>
+    </div>
+    <div class="columnTitle">
+      <span>題目</span>
+      <span>頻次比例條</span>
+      <span>頻次</span>
+    </div>
+    @for(option of optionList; track $index) {
+      <div class="option-box">
+        @if(option.type == "Star") {
+          <span class="opTitle">{{option.option}}
+            <i class='bx bxs-star'></i>
+          </span>
+        }@else {
+          <span class="opTitle">{{option.option}}</span>
+        }
+        <progress id="{{option.option}}" class="progress is-success" value="{{option.count}}" max="{{option.totaloption}}"></progress>
+        <span class="subtitle">{{option.count}}
+          <span>次</span>
+        </span>
+      </div>
+      @if(option.type == "Star" && option.option == 5) {
+        <div style="font-size: 2rem;text-align: right;margin-top: 50px;padding-right: 30px;">總計：&nbsp;{{option.starAverage}}
+          &nbsp;<i class='bx bxs-star'></i>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="option-chart">
+    <canvas id="optionChart"></canvas>
+  </div>
+
+</body>
+

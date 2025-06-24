@@ -1,0 +1,194 @@
+<!-- 創建、刪除按鈕 -->
+<div class="create-delete">
+
+  <div class="card">
+    <span>Edit</span>
+
+      <div class="social-link" (click)="isTrue = !isTrue">
+        <i class='bx bx-plus-medical'></i>新增
+      </div>
+
+      <div class="social-link" (click)="checkDelete()">
+        <i class='bx bxs-trash-alt'></i>刪除
+      </div>
+  </div>
+
+
+</div>
+
+<div class="containerEdit" [ngClass]="{dark: !isdarkMode, light: isdarkMode}">
+
+  <nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed" nzHideOnSinglePage nzPaginationPosition="top">
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="totalCheck" (click)="toggleCheck()"></th>
+        @for (column of listOfColumn; track column) {
+          @if (column.title == "狀態") {
+            <th [nzSortFn]="column.compare"
+            [nzFilterMultiple]="column.filterMultiple"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn">
+            {{ column.title }}
+            </th>
+          }@else if(column.title == "標題"){
+            <th>
+              {{ column.title }}
+            </th>
+          }@else {
+            <th [nzSortFn]="column.compare">
+              {{ column.title }}
+            </th>
+          }
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of sortTable.data; track data) {
+        <tr>
+          @if(data.status == '編輯中' || data.status == '未開始') {
+            <td><input type="checkbox" class="checkbox" id="check-{{data.id}}"></td>
+          }@else {
+            <td></td>
+          }
+          <td>{{ data.id }}</td>
+          @if(data.status == '編輯中') {
+            <td>
+              <a (click)="editing(data.id)" routerLink="/adding">{{ data.title }}</a>
+            </td>
+          }@else {
+            <td>{{ data.title }}</td>
+          }
+          <td>{{ data.startTime }}</td>
+          <td>{{ data.endTime }}</td>
+          @switch (data.status) {
+            @case ('編輯中') {
+              <td>
+                <span class="tag is-warning">編輯中</span>
+              </td>
+            }
+            @case ('收集中') {
+              <td>
+                <span class="tag is-success">收集中</span>
+              </td>
+            }
+            @case ('已結束') {
+              <td>
+                <span class="tag is-dark">已結束</span>
+              </td>
+            }
+            @case ('未開始') {
+              <td>
+                <span class="tag is-info">未開始</span>
+              </td>
+            }
+          }
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+
+
+
+  <!-- 彈出創建盒子 -->
+  @if(isTrue) {
+    <div class="create-box" draggable="true" cdkDrag cdkDragBoundary="body">
+      <article class="message is-link">
+        <div class="message-header">
+          <p>創建新的問卷</p>
+          <button class="delete" aria-label="delete" (click)="isTrue = !isTrue"></button>
+        </div>
+      </article>
+
+      <mat-stepper orientation="vertical" [linear]= false>
+        <mat-step>
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>
+              <span class="title">問卷名稱 & 說明內容</span>
+            </ng-template>
+
+            <div class="field">
+              <div class="control has-icons-left has-icons-right">
+                <input id="creatTitle" class="input" type="text" placeholder="請輸入問卷名稱" formControlName="title" required (keyup)="check()">
+                <p class="control has-icons-left has-icons-right">
+                  <textarea class="textarea" placeholder="請簡單描述問卷(200字以內)" formControlName="content" required (keyup)="check()"></textarea>
+                </p>
+                <span class="icon is-small is-left">
+                  <i class='bx bxs-edit' ></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class='bx bx-check'></i>
+                </span>
+              </div>
+            </div>
+            <div>
+              @if(isCheckFirst) {
+                <button id="btn-1" mat-button matStepperNext (click)="getFormValueFirst()">下一步</button>
+              }@else {
+                <p style="color: rgb(192, 76, 76);">請填寫標題及內容！</p>
+              }
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>
+              <span class="title">開始日期 - 結束日期</span>
+            </ng-template>
+            <div class="field">
+              <nz-range-picker formControlName="date" nzSize='large' style="width: 100%;height: 45px;" (ngModelChange)="check()"></nz-range-picker>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>取消</button>
+              @if(isCheckSecond) {
+                <button id="btn-2" mat-button matStepperNext (click)="getFormValueSecond()">下一步</button>
+              }@else {
+                <span style="color: rgb(192, 76, 76);">請確認日期！</span>
+              }
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>
+            <span class="title">完成</span>
+          </ng-template>
+            <span style="color: brown;">確認後，再往下一個步驟！</span>
+          <div>
+            <button mat-button matStepperPrevious>取消</button>
+            @if(isCheck) {
+            <button id="btn-3" mat-button routerLink="/adding" (click)="returnEditCode()">前往編輯</button>
+            }@else {
+              <span style="color: rgb(192, 76, 76);">請檢查填寫內容！</span>
+            }
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+
+  }
+
+  <!-- dialog -->
+  <dialog class="dialog" #dialog>
+    <header class="card-header" style="margin-bottom: 7px;">
+      <h1 class="title" style="font-size: 1.5rem;">是否刪除</h1>
+    </header>
+    <div class="card-content" style="margin-bottom: 16px;">
+      <h2 class="subtitle" style="font-size: 1rem;color: #3b6ea5;">警告！資料一旦刪除，將無法恢復！</h2>
+    </div>
+    <footer class="card-footer" (click)="dialog.close()">
+      <button class="cancel"
+      style="padding: 5px;font-size: 1rem;color: #153a58;background: #6ba4d6;margin: auto;border-radius: 10px;">
+        取消
+      </button>
+      <div></div>
+      <button class="cancel" (click)="delete()"
+      style="padding: 5px;font-size: 1rem;color: #153a58;background: #6ba4d6;margin: auto;border-radius: 10px;">
+        確認
+      </button>
+    </footer>
+
+</dialog>
+
+</div>
+
