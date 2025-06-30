@@ -23,7 +23,14 @@
 
 ---
 
-##  Angular 啟動與配置
+## 🖥️ 網站預覽
+
+![首頁](readme-images/home-1.png)
+![問卷展開](readme-images/home-2.png)
+
+---
+
+## 🔧 Angular 啟動與配置
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6
 
